@@ -1,3 +1,4 @@
+// src/pages/FrontPage.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { 
@@ -23,7 +24,7 @@ export default function FrontPage() {
   const [theme, setTheme] = useState("dark");
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isOpen, setIsOpen] = useState(false);
-  const userName = "";
+  const userName = localStorage.getItem("userName") || "";
 
   const navLinks = [
     { text: "Prediction", path: "/FrontPage/StockPrediction" },
@@ -71,7 +72,6 @@ export default function FrontPage() {
       {/* Navbar */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-lg border-b border-green-500/20">
         <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-3">
-
           {/* Logo */}
           <div onClick={() => navigate("/FrontPage")} className="flex items-center space-x-3 cursor-pointer group">
             <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-blue-500 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
@@ -85,9 +85,7 @@ export default function FrontPage() {
           {/* Desktop Navbar */}
           <div className="hidden md:flex items-center justify-between w-full ml-10">
             <div className="flex items-center space-x-6">
-              {navLinks
-                .filter(link => link.text !== "Compare") // remove Compare page
-                .map(link => <NavButton key={link.text} text={link.text} path={link.path} />)}
+              {navLinks.filter(link => link.text !== "Compare").map(link => <NavButton key={link.text} text={link.text} path={link.path} />)}
             </div>
 
             {/* Profile Button */}
@@ -106,7 +104,6 @@ export default function FrontPage() {
               {isOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
             </button>
           </div>
-
         </div>
 
         {/* Mobile Menu */}
@@ -170,7 +167,6 @@ export default function FrontPage() {
             </div>
           </div>
         </section>
-
       </main>
     </div>
   );
