@@ -1,3 +1,4 @@
+// src/pages/ForgotPassword.jsx
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -10,11 +11,14 @@ export default function ForgotPassword() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  const API_URL = "https://stock-prediciton-rp3w.onrender.com"; // Render backend URL
+
   const handleForgotPassword = async (e) => {
     e.preventDefault();
-    setMessage(""); setError("");
+    setMessage("");
+    setError("");
     try {
-      const res = await axios.post("http://localhost:5000/auth/forgot-password", { email });
+      const res = await axios.post(`${API_URL}/auth/forgot-password`, { email });
       setMessage(res.data.message);
       navigate("/verify-otp", { state: { email } });
     } catch (err) {
@@ -24,7 +28,10 @@ export default function ForgotPassword() {
 
   return (
     <div className="relative min-h-screen flex flex-col text-white overflow-hidden">
-      <div className="absolute inset-0 w-full h-full bg-cover bg-center animate-pulse-slow" style={{ backgroundImage: `url(${background})` }}></div>
+      <div
+        className="absolute inset-0 w-full h-full bg-cover bg-center animate-pulse-slow"
+        style={{ backgroundImage: `url(${background})` }}
+      ></div>
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
 
       <nav className="relative z-10 flex justify-center p-6">
