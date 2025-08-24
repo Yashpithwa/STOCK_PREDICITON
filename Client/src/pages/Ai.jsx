@@ -11,7 +11,7 @@ export default function Ai() {
 
   const messagesEndRef = useRef(null);
   const navigate = useNavigate();
-  const userName = "Yash";
+  const userName = "";
 
   const navLinks = [
     { text: "Prediction", path: "/FrontPage/StockPrediction" },
@@ -40,7 +40,7 @@ export default function Ai() {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/assistant", { // proxy will handle port 5000
+      const res = await fetch("https://stock-prediciton-rp3w.onrender.com/api/assistant", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt: input }),
