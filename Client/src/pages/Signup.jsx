@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
 import background from "../assets/Forex_First_Page.jpeg";
 
+// ✅ Backend Base URL
+const BASE_URL = "https://stock-prediciton-rp3w.onrender.com";
+
 export default function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,7 +20,7 @@ export default function Signup() {
     setError("");
 
     try {
-      const res = await axios.post("http://localhost:5000/auth/signup", {
+      const res = await axios.post(`${BASE_URL}/auth/signup`, {
         name,
         email,
         password,
