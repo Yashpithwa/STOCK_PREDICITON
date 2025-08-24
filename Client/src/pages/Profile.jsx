@@ -1,8 +1,12 @@
+// src/pages/Profile.jsx
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { FaUserCircle, FaSignOutAlt, FaEnvelope, FaGoogle } from 'react-icons/fa';
 import { motion } from "framer-motion";
+
+// ✅ Backend Base URL
+const BASE_URL = "https://stock-prediciton-rp3w.onrender.com";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -16,7 +20,7 @@ const Profile = () => {
       return;
     }
 
-    axios.get("http://localhost:5000/api/profile", {
+    axios.get(`${BASE_URL}/api/profile`, {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(res => {
