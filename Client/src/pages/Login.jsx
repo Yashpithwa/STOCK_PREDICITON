@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import background from "../assets/Forex_First_Page.jpeg";
 
+const API_URL = "https://stock-prediciton-rp3w.onrender.com";
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,7 +17,7 @@ export default function Login() {
     e.preventDefault();
     setError("");
     try {
-      const res = await axios.post("http://localhost:5000/auth/login", {
+      const res = await axios.post(`${API_URL}/auth/login`, {
         email,
         password,
       });
@@ -115,3 +117,4 @@ export default function Login() {
     </div>
   );
 }
+
