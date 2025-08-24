@@ -13,7 +13,7 @@ import watchlist from "./routes/watchlist.js";
 import news from "./routes/news.js";
 import ai from "./routes/ai.js";
 import compareRoutes from "./routes/compare.js";
-import profile from "./routes/Profile.js"
+import profile from "./routes/Profile.js";
 
 dotenv.config();
 
@@ -22,19 +22,33 @@ connectDB();
 
 const app = express();
 
-// Middlewares
-app.use(cors());
+// -------------------- MIDDLEWARES --------------------
+
+// ✅ CORS setup
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173", // local frontend (Vite/React dev server)
+      "https://stock-prediciton-frontend.onrender.com" // deployed frontend
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+  })
+);
+
+// ✅ Parse JSON requests
 app.use(express.json());
 
-// Routes
+// -------------------- ROUTES --------------------
 app.use("/auth", authRoutes);
-app.use(stockRoutes); 
-app.use(Price); 
-app.use("/api", watchlist); // ✅ Added /api prefix
+app.use(stockRoutes);
+app.use(Price);
+app.use("/api", watchlist); 
 app.use("/api/news", news);
 app.use(ai);
 app.use("/api/compare", compareRoutes);
-app.use("/api",profile);
-// Start server
+app.use("/api", profile);
+
+// -------------------- START SERVER --------------------
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
