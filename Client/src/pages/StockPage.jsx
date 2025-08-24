@@ -10,6 +10,9 @@ import {
 } from "recharts";
 import { TrendingUp, TrendingDown } from "lucide-react";
 
+// ✅ Backend Base URL
+const BASE_URL = "https://stock-prediciton-rp3w.onrender.com";
+
 const StockPage = () => {
   const { symbol } = useParams();
   const [stockData, setStockData] = useState([]);
@@ -22,7 +25,7 @@ const StockPage = () => {
     const fetchStockData = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`http://localhost:5000/api/stocks/${symbol}?days=${days}`);
+        const res = await fetch(`${BASE_URL}/api/stocks/${symbol}?days=${days}`);
         if (!res.ok) throw new Error("Failed to fetch stock data");
         const data = await res.json();
         setStockData(data);
@@ -39,7 +42,7 @@ const StockPage = () => {
     if (!stockData.length) return alert("No stock data available.");
     setPredicting(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/predict/${symbol}`, {
+      const res = await fetch(`${BASE_URL}/api/predict/${symbol}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ symbol, days, closePrices: stockData.map(s => s.close) }),
@@ -165,3 +168,4 @@ const StockPage = () => {
 };
 
 export default StockPage;
+
