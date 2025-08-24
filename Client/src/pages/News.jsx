@@ -1,7 +1,10 @@
+// src/pages/News.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUserCircle, FaChartLine, FaBolt } from "react-icons/fa";
 import { TrendingUp, Menu, X } from "lucide-react";
+
+const API_URL = "https://stock-prediciton-rp3w.onrender.com";
 
 const News = ({ stocks = ["stocks"] }) => {
   const navigate = useNavigate();
@@ -25,7 +28,7 @@ const News = ({ stocks = ["stocks"] }) => {
     setLoading(true);
     setError(null);
 
-    fetch(`http://localhost:5000/api/news?q=${query}`)
+    fetch(`${API_URL}/api/news?q=${query}`)
       .then((res) => {
         if (!res.ok) throw new Error("Network response was not ok");
         return res.json();
@@ -166,3 +169,4 @@ const News = ({ stocks = ["stocks"] }) => {
 };
 
 export default News;
+
