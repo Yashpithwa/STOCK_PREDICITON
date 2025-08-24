@@ -11,6 +11,9 @@ const stocks = [
   "HON","GE","UPS","CAT","MMM"
 ];
 
+// ✅ Backend Base URL
+const BASE_URL = "https://stock-prediciton-rp3w.onrender.com";
+
 const StockPrediction = () => {
   const navigate = useNavigate();
   const [stockData, setStockData] = useState({});
@@ -36,7 +39,7 @@ const StockPrediction = () => {
     if (favorites[symbol]) return;
     setFavorites((prev) => ({ ...prev, [symbol]: true }));
     try {
-      await fetch("http://localhost:5000/api/watchlist", {
+      await fetch(`${BASE_URL}/api/watchlist`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId, symbol }),
@@ -50,7 +53,7 @@ const StockPrediction = () => {
     setStockLoading(true);
     try {
       const requests = stocks.map((stock) =>
-        fetch(`http://localhost:5000/api/price/${stock}`)
+        fetch(`${BASE_URL}/api/price/${stock}`)
           .then((res) => (res.ok ? res.json() : null))
           .then((data) => (data ? { [stock]: { price: data.price, diff: data.difference } } : {}))
       );
@@ -207,3 +210,4 @@ const StockPrediction = () => {
 };
 
 export default StockPrediction;
+
